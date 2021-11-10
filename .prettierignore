@@ -1,0 +1,10 @@
+# gitignore语法配置
+
+/dist/*
+*.local
+/node_modules/**
+
+**/*.svg
+**/*.sh
+**/*.md
+/public/*

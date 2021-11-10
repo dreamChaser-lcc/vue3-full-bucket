@@ -1,7 +1,7 @@
 # 概述
 
 - vite+vue3.0+antd+vuex+router+ts 全家桶探索学习
-
+# 准备
 ## 项目搭建
 
 ```none
@@ -52,7 +52,7 @@
 
 ```
 
-```json
+```
 
   // package.json
   {

@@ -51,6 +51,7 @@
   npm  i lint-staged -D
 
 ```
+![image](https://user-images.githubusercontent.com/73150571/141251991-0c52f485-e33f-4dd3-9888-57e47ffd5031.png)
 
 ```
 

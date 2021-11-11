@@ -23,25 +23,25 @@
 添加配置
 
 ```js
- module.exports={
+module.exports = {
   trailingComma: "es5", // 尾随逗号
   tabWidth: 2, // tab两个空格
-  semi: true,  // 末尾加分号
-  singleQuote: false, 
-  bracketSpacing:true,
-  bracketSameLine:true, 
-}
+  semi: true, // 末尾加分号
+  singleQuote: false,
+  bracketSpacing: true,
+  bracketSameLine: true,
+};
 ```
 
 ## eslint 代码格式检测
 
-- npm install eslint --save-dev   // dev安装
+- npm install eslint --save-dev // dev 安装
 - ./node_modules/.bin/eslint --init // 执行命令生成配置文件
-- ./node_modules/.bin/eslint ./src/App.vue  // 检测App.vue文件
-- 或全局安装npm install eslint --global // 全局安装可以使用eslint命令
-- eslint ./src/App.vue  
+- ./node_modules/.bin/eslint ./src/App.vue // 检测 App.vue 文件
+- 或全局安装 npm install eslint --global // 全局安装可以使用 eslint 命令
+- eslint ./src/App.vue
 
-## git hooks提交时处理eslint处理代码
+## git hooks 提交时处理 eslint 处理代码
 
 ```none
 
@@ -53,23 +53,21 @@
 ```
 
 ```json
-
-  // package.json
-  {
-    "husky": {
-        "hooks": {
-          // 当触发git commit 时触发的hooks
-          "pre-commit": "lint-staged"
-        }
-      },
-      // commit 触发执行的命令
-      "lint-staged": {
-        "*.{vue,ts}": [
-          "npm run lint", // 执行脚本
-          "prettier --write",
-          "git add"
-        ]
-      },
+// package.json
+{
+  "husky": {
+    "hooks": {
+      // 当触发git commit 时触发的hooks
+      "pre-commit": "lint-staged"
+    }
+  },
+  // commit 触发执行的命令
+  "lint-staged": {
+    "*.{vue,ts}": [
+      "npm run lint", // 执行脚本
+      "prettier --write",
+      "git add"
+    ]
   }
-
+}
 ```

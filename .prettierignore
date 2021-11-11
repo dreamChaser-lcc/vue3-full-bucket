@@ -6,5 +6,5 @@
 
 **/*.svg
 **/*.sh
-**/*.md
+**/*.json
 /public/*

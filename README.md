@@ -1,7 +1,7 @@
 # 概述
 
 - vite+vue3.0+antd+vuex+router+ts 全家桶探索学习
-
+# 工程化准备
 ## 项目搭建
 
 ```none
@@ -51,6 +51,7 @@ module.exports = {
   npm  i lint-staged -D
 
 ```
+![image](https://user-images.githubusercontent.com/73150571/141251991-0c52f485-e33f-4dd3-9888-57e47ffd5031.png)
 
 ```json
 // package.json

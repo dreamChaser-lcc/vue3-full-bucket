@@ -1,11 +1,22 @@
 <script lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import { defineComponent } from "vue";
+import { defineComponent, getCurrentInstance } from "vue";
 import HelloWorld from "./components/HelloWorld.vue";
+
+declare module "@vue/runtime-core" {
+  interface ComponentCustomProperties {
+    $hasPermission: any;
+  }
+}
+
 export default defineComponent({
   name: "App",
   components: { HelloWorld },
+  setup: () => {
+    const proxy = getCurrentInstance()!.proxy;
+    console.log(proxy && proxy.$hasPermission(1, 2));
+  },
 });
 </script>
 

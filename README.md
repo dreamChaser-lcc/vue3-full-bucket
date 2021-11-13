@@ -72,3 +72,12 @@ module.exports = {
   }
 }
 ```
+## 全局引入ant-design-vue插件
+必须加上@next要不然不是最新版本会报错
+必须2.x版本，2.x版本才支持vue3
+```
+  npm i ant-design-vue@next -S
+```
+- 可以app引入，app.use()方式引入
+- 也可以使用插件引入如下
+https://www.npmjs.com/package/vite-plugin-style-import

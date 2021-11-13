@@ -10,18 +10,19 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged" 
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "{src,public}.{vue,ts,tsx,js}": [
       "eslint",
-      "prettier --write",  
+      "prettier --write",
       "git add"
     ]
   },
   "dependencies": {
-    "vue": "^3.2.16" 
+    "ant-design-vue": "^2.2.8",
+    "vue": "^3.2.16"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.3.1",

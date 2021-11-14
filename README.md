@@ -81,3 +81,8 @@ module.exports = {
 - 可以app引入，app.use()方式引入
 - 也可以使用插件引入如下
 https://www.npmjs.com/package/vite-plugin-style-import
+
+## 全局引入 vue-router@4
+```
+  npm install vue-router@4
+```

@@ -1,7 +1,10 @@
 import { App } from "vue";
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import HelloWorld from "../components/HelloWorld.vue";
+import About from "../components/About.vue";
 import Layout from "../layout/index.vue";
+import TransitionNode from "../components/transitionNode";
+import DefaultSlotTest from "../components/defaultSlotTest";
 /**
  * 配置路由实例
  * @param app
@@ -14,9 +17,29 @@ const setupRouter = (app: App<Element>) => {
       component: Layout,
       children: [
         {
-          path: "123",
-          redirect: "/home",
-          component: HelloWorld,
+          path: "home",
+          name: 'home',
+          // redirect: "/home/hello",
+          component: TransitionNode,
+          children: [
+            {
+              path: 'hello',
+              name: 'hello',
+              component: HelloWorld
+            },
+            {
+              path: 'test',
+              name: 'test',
+              component: DefaultSlotTest
+            }
+          ]
+        },
+        {
+          path: "about",
+          name: 'about',
+          // redirect: "/home",
+
+          component: About,
         },
       ],
     },

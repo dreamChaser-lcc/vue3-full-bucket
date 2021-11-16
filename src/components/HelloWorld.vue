@@ -6,11 +6,25 @@ export default defineComponent({
   props: {
     msg: { type: String },
   },
+  setup() {
+    const number = ref(0);
+    const handleAdd = () => {
+      number.value++;
+    };
+    return {
+      number,
+      handleAdd,
+    };
+  },
 });
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <div>
+    <slot name='default'></slot>
+    <h1>he{{ number }}</h1>
+    <a-button @click="handleAdd">+</a-button>
+  </div>
 </template>
 
 <style scoped>

@@ -13,7 +13,7 @@ declare module "@vue/runtime-core" {
 
 export default defineComponent({
   name: "App",
-  components: { HelloWorld },
+  // components: { HelloWorld },
   setup: (props, ctx) => {
     const proxy = getCurrentInstance()!.proxy;
     const route = useRoute();
@@ -35,7 +35,8 @@ export default defineComponent({
   <!-- <h1>{{ meta }}</h1>
   <router-link to="/">Go to Home</router-link>
   <router-link to="/about">Go to About</router-link> -->
-  <router-view></router-view>
+  <router-view>
+  </router-view>
 </template>
 
 <style>

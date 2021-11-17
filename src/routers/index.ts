@@ -3,8 +3,8 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import HelloWorld from "../components/HelloWorld.vue";
 import About from "../components/About.vue";
 import Layout from "../layout/index.vue";
-import TransitionNode from "../components/transitionNode";
 import DefaultSlotTest from "../components/defaultSlotTest";
+import TransitionNode from "@/components/transitionNode";
 /**
  * 配置路由实例
  * @param app
@@ -38,7 +38,6 @@ const setupRouter = (app: App<Element>) => {
           path: "about",
           name: 'about',
           // redirect: "/home",
-
           component: About,
         },
       ],

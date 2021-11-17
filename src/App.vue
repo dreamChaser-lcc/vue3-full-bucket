@@ -1,7 +1,7 @@
 <script lang="ts">
 // This starter template is using Vue 3 <script setup> SFCs
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
-import { defineComponent, getCurrentInstance } from "vue";
+import { defineComponent, getCurrentInstance, onMounted, onUpdated } from "vue";
 import { useRoute } from "vue-router";
 import HelloWorld from "./components/HelloWorld.vue";
 
@@ -17,7 +17,9 @@ export default defineComponent({
   setup: (props, ctx) => {
     const proxy = getCurrentInstance()!.proxy;
     const route = useRoute();
-    console.log("123", route.meta);
+    onUpdated(() => {
+      console.log("123", route.name);
+    });
     const meta = route.meta;
     const name = route.name;
     return {
@@ -35,8 +37,7 @@ export default defineComponent({
   <!-- <h1>{{ meta }}</h1>
   <router-link to="/">Go to Home</router-link>
   <router-link to="/about">Go to About</router-link> -->
-  <router-view>
-  </router-view>
+  <router-view> </router-view>
 </template>
 
 <style>
@@ -46,6 +47,6 @@ export default defineComponent({
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50; */
-  height:100vh;
+  height: 100vh;
 }
 </style>

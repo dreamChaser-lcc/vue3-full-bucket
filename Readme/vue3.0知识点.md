@@ -46,9 +46,12 @@ app.use({
 ```html
 <template>
   <sub-page>
+    <!-- 匿名作用域插槽 -->
     <template v-slot:default="props">
-      <div>子组件的属性{{props}}<div>  //=> 打印：子组件的属性{prop1:'属性1',prop2:'属性2'}
+      <!-- 子组件的属性{prop1:'属性1',prop2:'属性2'}  -->
+      <div>子组件的属性{{props}}<div>  
     </template>
+    <!-- 具名插槽 -->
     <template v-slot:ohter>
         不获取子组件属性
     </template>
@@ -60,8 +63,12 @@ app.use({
 
 ```html
 <template>
+  <!-- 默认的名称是匿名插槽，绑定属性是作用域插槽，所以是匿名作用域插槽 -->
   <slot name="default" prop1="属性1" prop2="属性2"> </slot>
-  <slot name="other"> </slot>
+  <!-- 具名插槽 -->
+ <slot name="other"> </slot>
+  <!-- 具名作用域插槽插槽 -->
+ <slot name="other" :props='props'> </slot>
 </template>
 ```
 

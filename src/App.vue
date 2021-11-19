@@ -3,7 +3,6 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { defineComponent, getCurrentInstance, onMounted, onUpdated } from "vue";
 import { useRoute } from "vue-router";
-import HelloWorld from "./components/HelloWorld.vue";
 
 declare module "@vue/runtime-core" {
   interface ComponentCustomProperties {
@@ -18,7 +17,7 @@ export default defineComponent({
     const proxy = getCurrentInstance()!.proxy;
     const route = useRoute();
     onUpdated(() => {
-      console.log("123", route.name);
+      // console.log("123", route.name);
     });
     const meta = route.meta;
     const name = route.name;

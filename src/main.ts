@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import setupAntdCompont from "./plugins/AntdCompont";
 import setupCustomTest from "./plugins/customTest";
-import setupRouter from "./routers";
+import setupRouter from "./router";
 
 const app = createApp(App);
 
@@ -14,3 +14,7 @@ setupAntdCompont(app);
 setupRouter(app);
 
 app.mount("#app");
+
+export {
+  app
+}

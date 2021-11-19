@@ -1,3 +1,4 @@
+<!-- 总布局页面  -->
 <template>
   <div>
     <a-layout>
@@ -48,10 +49,14 @@ export default defineComponent({
     PageSider,
   },
   setup() {
-    return {
-      selectedKeys: ref<string[]>(["1"]),
-      collapsed: ref<boolean>(false),
+    const selectedKeys = ref<string[]>(["1"]);
+    const collapsed = ref<boolean>(false);
+    // console.log(selectedKeys.value);
+    const handleSelect = (value: any) => {
+      // console.log(value)
+      // selectedKeys.value.push(value.key);
     };
+    return { selectedKeys: selectedKeys, collapsed, handleSelect };
   },
 });
 </script>

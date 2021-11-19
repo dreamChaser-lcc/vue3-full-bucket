@@ -1,18 +1,15 @@
+<!-- 左侧菜单页面  -->
 <template>
   <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
     <div class="logo" />
-    <a-menu theme="dark" mode="inline" v-model:selectedKeys="selectedKeys">
-      <a-menu-item key="1">
+    <a-menu
+      theme="dark"
+      mode="inline"
+      @click="onSelect"
+      :selectedKeys="selectedKeys">
+      <a-menu-item v-for="item in baseRoutes[0].children" :key="item.name">
         <user-outlined />
-        <span>nav 1</span>
-      </a-menu-item>
-      <a-menu-item key="2">
-        <video-camera-outlined />
-        <span>nav 2</span>
-      </a-menu-item>
-      <a-menu-item key="3">
-        <upload-outlined />
-        <span>nav 3</span>
+        <span>{{ item.name }}</span>
       </a-menu-item>
     </a-menu>
   </a-layout-sider>
@@ -26,6 +23,9 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons-vue";
+import { baseRoutes } from "@/router/staticModules/index";
+import { useRouter } from "vue-router";
+
 export default defineComponent({
   name: "PageSider",
   components: {
@@ -38,9 +38,21 @@ export default defineComponent({
   props: {
     collapsed: { type: Boolean },
     selectedKeys: { type: Array },
+    handleSelect: { type: String },
   },
-  setup() {
-    
+  emits: ["update:selectedKeys"],
+  setup(props, ctx) {
+    const { selectedKeys, handleSelect } = props;
+    const router = useRouter();
+    const onSelect = (item: any) => {
+      ctx.emit("update:selectedKeys", item.keypath);
+
+      router.replace(item.key);
+    };
+    return {
+      baseRoutes,
+      onSelect,
+    };
   },
 });
 </script>

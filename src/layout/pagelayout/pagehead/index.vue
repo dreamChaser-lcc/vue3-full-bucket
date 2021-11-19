@@ -26,7 +26,7 @@ const PageHead = defineComponent({
   },
   emits:['update:collapsed'],
   setup(props,ctx) {
-    console.log(props.collapsed);
+    // console.log(props.collapsed);
   },
 });
 export default PageHead;

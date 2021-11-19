@@ -34,3 +34,25 @@ route:当前路由对应的路由，包含 name,patch,meta,query 等路由属性
       </transition>
  </router-view>
 ```
+
+## router 和 route 的区别
+
+- router 是总的路由实例对象
+- route 是当前路由对象
+
+## useRoute 和 useRouter 使用
+
+钩子函数，可以代替 this 调用 router 和 route
+
+```ts
+  import { useRoute,useRouter } from 'vue-router'
+  // vue2.x 获取路由实例和当前路由对象
+  this.$route
+  this.$router
+  // vue3.x 配合setup函数
+  setup(){
+    const route = useRoute();
+    const router = useRouter();
+
+  }
+```

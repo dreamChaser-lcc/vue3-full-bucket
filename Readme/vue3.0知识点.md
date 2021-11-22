@@ -30,7 +30,7 @@ app.use({
   },
 ```
 
-## <keep-alive>缓存组件
+## keep-alive 缓存组件
 
 - 不会生成 dom 元素
 - 生命周期 activated 和 deactivated,分别在被展示和被隐藏时触发
@@ -121,12 +121,25 @@ app.use({
   }
 ```
 
+## ref 和 reactive 响应式区别
+
+共同点:都可以定义响应式变量
+
+- reactive 只能是对象或者数组,ref 都可以(但一般用在基础类型)
+- reactive 返回是 Proxy 对象,ref 返回的 RefImpl 类型的对象，译为引用的实现(reference implement)
+- |          | ref                                                               | reactive                     |
+  | -------- | ----------------------------------------------------------------- | ---------------------------- | ----- |
+  | 定义类型 | 基础数据类型和引用类型/n`但一般用于定义基本类型`                  | `只能`定义引用类型(对象      | 数组) |
+  | 返回对象 | 返回` RefImpl 类型的对象`，\n 译为引用的实现(reference implement) | 返回是 `Proxy 对象`          |
+  | 读取变量 | console.log(ref.value)                                            | console.log(reactive.属性名) |
+
 ## 组件通信
 
-| 通信类型 | 父传子 | 子传父 |
-| -------- | ------ | ------ |
-| 单元格   | 单元格 | 单元格 |
-| 单元格   | 单元格 | 单元格 |
+| 通信类型          | 方法                                            |
+| ----------------- | ----------------------------------------------- |
+| 父子互值          | props/ref 方式,props/emits 方式(v-model/emits), |
+| 父子互传,子孙互传 | provide/inject                                  |
+| 全局共享          | vuex                                            |
 
 ### 父子组件通信
 
@@ -231,4 +244,100 @@ app.component("ChildFirst", {
     return { onChange };
   },
 });
+```
+
+### provide/inject 方式
+
+- 共享一个相对父组件内的全局的状态
+- 子组件或孙子组件共享和更改父组件的状态
+- 一般不推荐子组件直接修改，而是调用父组件的方法，在父组件修改
+
+```ts
+setup() {
+    const appContext: AppContext = getCurrentInstance()!.appContext;
+    const app = appContext.app;
+    // 父组件
+    app.component("SuperFirst", {
+      template: `
+        <div>父组件{{superNumber}}</div>
+        <div>混合数据reactive{{mixedObj}}</div>
+        <button @click="changeOrigin">change</button>
+        <child-first></child-first>
+      `,
+      setup() {
+        const superNumber = ref<number>(0);
+        // 复杂结构数据，对象或者数组
+        const mixedObj = reactive<any>({ name: "lcc", meta: { metaname: 1 } });
+
+        // readonly 保证子组件inject不能直接修改
+        provide("superNumber", readonly(superNumber));
+
+        provide("mixedObj", mixedObj);
+        // 父组件直接更改
+        const changeOrigin = () => {
+          superNumber.value = 1;
+          mixedObj.meta = { ...mixedObj.meta, otherMeta: 2 };
+        };
+        // 子组件调用父组件方法更改
+        const modifyOrigin = (params: { number: number; obj: any }) => {
+          superNumber.value = params.number;
+          mixedObj.meta = params.obj;
+        };
+        // 提供给子组件修改方法
+        provide("modifyOrigin", modifyOrigin);
+        return { superNumber, mixedObj, changeOrigin };
+      },
+    });
+    app.component("ChildFirst", {
+      template: `<div>子组件1{{superNumber}}</div>
+        <div>{{mixedObj}}</div>
+        <button @click="onChange">改变</button>
+        <grandSonFirst/>
+      `,
+      setup(props, ctx) {
+        // 注入修改共享状态的方法
+        const modifyOrigin =
+          inject<(param: { number: number; obj: any }) => void>("modifyOrigin");
+
+        const superNumber = inject<any>("superNumber");
+        const mixedObj = inject<any>("mixedObj");
+
+        const onChange = () => {
+          // 不推荐,不推荐直接子组件修改
+          // mixedObj.meta = { meta1: 1 }
+
+          // 推荐,调用改共享状态方法
+          const number = 666;
+          const obj = { meta1: 1 };
+          modifyOrigin?.({ number, obj });
+
+          // 不生效 因为子组件中readonly,子组件无法直接修改
+          superNumber.value = 55;
+        };
+
+        return { superNumber, mixedObj, onChange };
+      },
+    });
+    app.component("grandSonFirst", {
+      template: `<div>孙子组件{{superNumber}}</div>
+        <div>{{mixedObj}}</div>
+        <button @click="onChange">改变</button>
+      `,
+      setup(props, ctx) {
+        const modifyOrigin =
+          inject<(param: { number: number; obj: any }) => void>("modifyOrigin");
+        const superNumber = inject<any>("superNumber");
+        const mixedObj = inject("mixedObj");
+        const onChange = () => {
+          const number = 666;
+          const obj = { meta1: 1 };
+          // 获取父组件的方法
+          modifyOrigin?.({ number, obj });
+          // 不生效 因为子组件中readonly
+          superNumber.value = 55;
+        };
+        return { superNumber, mixedObj, onChange };
+      },
+    });
+  },
 ```

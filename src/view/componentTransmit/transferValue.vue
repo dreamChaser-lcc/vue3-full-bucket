@@ -11,6 +11,10 @@ import {
   ref,
   defineExpose,
   onMounted,
+  provide,
+  reactive,
+  readonly,
+  inject,
 } from "vue";
 const transferValue = defineComponent({
   setup() {
@@ -18,47 +22,79 @@ const transferValue = defineComponent({
     const app = appContext.app;
     app.component("SuperFirst", {
       template: `
-        <div>父组件1{{superval}}</div>
-        <button @click="sendValue">send</button>
-        <child-first v-model:superval="superval" ref='childRef'></child-first>
+        <div>父组件1{{superNumber}}</div>
+        <div>混合数据reactive{{mixedObj}}</div>
+        <button @click="changeOrigin">change</button>
+        <child-first></child-first>
       `,
       setup() {
-        const superval = ref<string>("父组件的值");
-        const childRef = ref<any>(null);
-        const sendValue = () => {
-          // 可以拿到son组件实例，并调用其setup返回的所有信息
-          console.log(childRef.value);
+        const superNumber = ref<number>(0);
+        // 复杂结构数据
+        const mixedObj = reactive<any>({ name: "lcc", meta: { a: 1 } });
 
-          // 通过调用son组件实例的方法，向其传递数据
-          childRef.value;
+        // 保证子组件inject不能修改
+        provide("superNumber", readonly(superNumber));
+
+        provide("mixedObj", mixedObj);
+        // 父组件更改
+        const changeOrigin = () => {
+          console.log(superNumber.value, mixedObj.meta);
+          superNumber.value = 1;
+          mixedObj.meta = { ...mixedObj.meta, b: 2 };
         };
-        onMounted(() => {
-          childRef.value.childFunc();
-        });
-        return { superval, childRef, sendValue };
+        // 子组件更改
+        const modifyOrigin = (params: { number: number; obj: any }) => {
+          superNumber.value = params.number;
+          mixedObj.meta = params.obj;
+        };
+        provide("modifyOrigin", modifyOrigin);
+        return { superNumber, mixedObj, changeOrigin };
       },
     });
     app.component("ChildFirst", {
-      template: `<div>子组件1{{parent}}</div>
-        <div>{{superval}}</div>
+      template: `<div>子组件1{{superNumber}}</div>
+        <div>{{mixedObj}}</div>
+        <button @click="onChange">改变</button>
+        <grandSonFirst/>
+      `,
+      setup(props, ctx) {
+        const modifyOrigin =
+          inject<(param: { number: number; obj: any }) => void>("modifyOrigin");
+        const superNumber = inject<any>("superNumber");
+        const mixedObj = inject<any>("mixedObj");
+        const onChange = () => {
+          // const number = 666;
+          // const obj = { meta1: 1 };
+          // 获取父组件的方法
+          // modifyOrigin?.({ number, obj });
+          mixedObj.meta = { meta1: 1 } 
+          // 不生效 因为子组件中readonly
+          superNumber.value = 55;
+        };
+
+        return { superNumber, mixedObj, onChange };
+      },
+    });
+    app.component("grandSonFirst", {
+      template: `<div>孙子组件1{{superNumber}}</div>
+        <div>{{mixedObj}}</div>
         <button @click="onChange">改变</button>
       `,
-      props: {
-        superval: {
-          type: String,
-        },
-      },
-      emits: ["update:superval", "childFunc"],
       setup(props, ctx) {
+        const modifyOrigin =
+          inject<(param: { number: number; obj: any }) => void>("modifyOrigin");
+        const superNumber = inject<any>("superNumber");
+        const mixedObj = inject("mixedObj");
         const onChange = () => {
-          ctx.emit("update:superval", "改变");
+          const number = 666;
+          const obj = { meta1: 1 };
+          // 获取父组件的方法
+          modifyOrigin?.({ number, obj });
+          // 不生效 因为子组件中readonly
+          superNumber.value = 55;
         };
-        const childFunc = () => {
-          console.log("子组件的方法");
-        };
-        ctx.emit("childFunc", childFunc);
-        const parent = 2;
-        return { parent, childFunc, onChange };
+
+        return { superNumber, mixedObj, onChange };
       },
     });
   },

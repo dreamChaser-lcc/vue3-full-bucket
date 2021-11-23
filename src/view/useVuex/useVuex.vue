@@ -6,6 +6,7 @@
 import { computed, defineComponent, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { IStore } from "@/store/types";
+import dynamicRouterModules from "@/router/modules";
 /**vuex使用页面 */
 export default defineComponent({
   setup() {
@@ -20,6 +21,7 @@ export default defineComponent({
       return store.state.test.count;
     });
     onMounted(() => {
+      // console.log(dynamicRouterModules)
       // console.log(store.getters["test/getcount"]);
     });
     const onCommit = () => {

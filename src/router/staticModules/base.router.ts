@@ -9,6 +9,7 @@ import HelloWorld from "@/components/HelloWorld.vue";
 
 import About from "@/components/About.vue";
 import userVuex from "@/view/useVuex";
+import dynamicRouterModules from "@/router/modules";
 
 const baseRoutes: RouteRecordRaw[] = [
   {
@@ -44,12 +45,12 @@ const baseRoutes: RouteRecordRaw[] = [
         path: "transferValue",
         name: 'transferValue',
         // redirect: "/home",
-        component: transferValue,
+        component: dynamicRouterModules['view/componentTransmit'],
       },
       {
         path: 'userVuex',
         name: 'userVuex',
-        component: userVuex
+        component: dynamicRouterModules['view/useVuex']
       }
     ],
   },

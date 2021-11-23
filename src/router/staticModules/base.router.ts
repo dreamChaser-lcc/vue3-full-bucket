@@ -8,6 +8,7 @@ import DefaultSlotTest from "@/components/defaultSlotTest";
 import HelloWorld from "@/components/HelloWorld.vue";
 
 import About from "@/components/About.vue";
+import userVuex from "@/view/useVuex";
 
 const baseRoutes: RouteRecordRaw[] = [
   {
@@ -45,6 +46,11 @@ const baseRoutes: RouteRecordRaw[] = [
         // redirect: "/home",
         component: transferValue,
       },
+      {
+        path: 'userVuex',
+        name: 'userVuex',
+        component: userVuex
+      }
     ],
   },
 ];

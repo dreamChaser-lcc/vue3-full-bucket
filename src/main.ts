@@ -3,6 +3,7 @@ import App from "./App.vue";
 import setupAntdCompont from "./plugins/AntdCompont";
 import setupCustomTest from "./plugins/customTest";
 import setupRouter from "./router";
+import setupStore from "./store";
 
 const app = createApp(App);
 
@@ -12,6 +13,8 @@ setupCustomTest(app);
 setupAntdCompont(app);
 // 挂载路由组件
 setupRouter(app);
+// 挂载全局状态
+setupStore(app)
 
 app.mount("#app");
 

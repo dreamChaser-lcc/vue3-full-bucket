@@ -124,20 +124,17 @@ app.use({
 ## ref 和 reactive 响应式区别
 
 共同点:都可以定义响应式变量
-
-- reactive 只能是对象或者数组,ref 都可以(但一般用在基础类型)
-- reactive 返回是 Proxy 对象,ref 返回的 RefImpl 类型的对象，译为引用的实现(reference implement)
-- |          | ref                                                               | reactive                     |
-  | -------- | ----------------------------------------------------------------- | ---------------------------- | ----- |
-  | 定义类型 | 基础数据类型和引用类型/n`但一般用于定义基本类型`                  | `只能`定义引用类型(对象      | 数组) |
-  | 返回对象 | 返回` RefImpl 类型的对象`，\n 译为引用的实现(reference implement) | 返回是 `Proxy 对象`          |
-  | 读取变量 | console.log(ref.value)                                            | console.log(reactive.属性名) |
+| | ref | reactive |
+| -------- | ----------------------------------------------------------------- | ---------------------------- |
+| 定义类型 | 基础数据类型和引用类型\n`但一般用于定义基本类型` | `只能`定义引用类型(对象 | 数组) |
+| 返回对象 | 返回` RefImpl 类型的对象`，\n 译为引用的实现(reference implement) | 返回是 `Proxy 对象` |
+| 读取变量 | console.log(ref.value) | console.log(reactive.属性名) |
 
 ## 组件通信
 
 | 通信类型          | 方法                                            |
 | ----------------- | ----------------------------------------------- |
-| 父子互值          | props/ref 方式,props/emits 方式(v-model/emits), |
+| 父子互值          | `props/ref` 方式,\n`props/emits` 方式(v-model/emits) |
 | 父子互传,子孙互传 | provide/inject                                  |
 | 全局共享          | vuex                                            |
 

@@ -1,8 +1,9 @@
 <template>
-  <div>123</div>
+  <div>3123</div>
   <SuperFirst></SuperFirst>
 </template>
 <script lang="ts">
+import { IStore } from "@/store/types";
 import { ALL } from "dns";
 import {
   AppContext,
@@ -15,18 +16,20 @@ import {
   reactive,
   readonly,
   inject,
+  computed,
 } from "vue";
+import { useStore } from "vuex";
 const transferValue = defineComponent({
   setup() {
     const appContext: AppContext = getCurrentInstance()!.appContext;
     const app = appContext.app;
     app.component("SuperFirst", {
       template: `
-        <div>父组件1{{superNumber}}</div>
-        <div>混合数据reactive{{mixedObj}}</div>
-        <button @click="changeOrigin">change</button>
-        <child-first></child-first>
-      `,
+          <div>父组件1{{superNumber}}</div>
+          <div>混合数据reactive{{mixedObj}}</div>
+          <button @click="changeOrigin">change</button>
+          <child-first></child-first>
+        `,
       setup() {
         const superNumber = ref<number>(0);
         // 复杂结构数据
@@ -53,10 +56,10 @@ const transferValue = defineComponent({
     });
     app.component("ChildFirst", {
       template: `<div>子组件1{{superNumber}}</div>
-        <div>{{mixedObj}}</div>
-        <button @click="onChange">改变</button>
-        <grandSonFirst/>
-      `,
+          <div>{{mixedObj}}</div>
+          <button @click="onChange">改变</button>
+          <grandSonFirst/>
+        `,
       setup(props, ctx) {
         const modifyOrigin =
           inject<(param: { number: number; obj: any }) => void>("modifyOrigin");
@@ -67,7 +70,7 @@ const transferValue = defineComponent({
           // const obj = { meta1: 1 };
           // 获取父组件的方法
           // modifyOrigin?.({ number, obj });
-          mixedObj.meta = { meta1: 1 } 
+          mixedObj.meta = { meta1: 1 };
           // 不生效 因为子组件中readonly
           superNumber.value = 55;
         };
@@ -77,9 +80,9 @@ const transferValue = defineComponent({
     });
     app.component("grandSonFirst", {
       template: `<div>孙子组件1{{superNumber}}</div>
-        <div>{{mixedObj}}</div>
-        <button @click="onChange">改变</button>
-      `,
+          <div>{{mixedObj}}</div>
+          <button @click="onChange">改变</button>
+        `,
       setup(props, ctx) {
         const modifyOrigin =
           inject<(param: { number: number; obj: any }) => void>("modifyOrigin");

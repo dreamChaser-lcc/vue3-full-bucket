@@ -86,3 +86,8 @@ https://www.npmjs.com/package/vite-plugin-style-import
 ```
   npm install vue-router@4
 ```
+
+## vuex 安装
+```CLI
+  npm install vuex@next --save
+```

@@ -2,7 +2,7 @@
 export const authorityRouter = [
   {
     "id": 1,
-    "url": "http://system",
+    "url": "system",
     "sort": 1,
     "icon": "icon-BUG",
     "keepAlive": 0,
@@ -16,7 +16,7 @@ export const authorityRouter = [
     "sort": 1,
     "icon": "icon-yunwei",
     "keepAlive": 0,
-    "viewPath": "view/componentTransmit",
+    "viewPath": "view/icons",
     "parentId": 1,
     "name": "角色管理"
   },

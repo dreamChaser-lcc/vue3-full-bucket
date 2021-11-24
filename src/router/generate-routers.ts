@@ -1,4 +1,6 @@
+import TransitionNode from "@/components/transitionNode";
 import dynamicRouterModules from "./modules";
+import { baseRoutes } from "./staticModules";
 
 /**请求后端数据并处理，暂无api*/
 export const fetchRouter = () => {
@@ -9,26 +11,32 @@ export const fetchRouter = () => {
     //   resolve(res);
     // })
     // .catch((err: any) => reject(err))
-  })
-}
+  });
+};
 /**
  * 对树解构的数据，生成route
  * @param treeNode 路由树
- * @returns 
+ * @returns
  */
-export const generateDynamicRouter = (treeNode: any) => {
+export const generateDynamicRouter = (treeNode: any, pathPrefix = "") => {
   return treeNode.map((item: any) => {
     const { name, url, viewPath, keepAlive, icon, sort } = item;
-    const children = item.children.length ? generateDynamicRouter(item.children) : [];
-    let path = '';
+    const children = item.children.length
+      ? generateDynamicRouter(item.children)
+      : [];
+    let path = "";
     if (/http(s)?:/.test(url)) {
       path = url;
     } else {
       // 去重路径
-      path = [...new Set(url.split('/'))].join('/');
+      path = url.startsWith("/") ? url : "/" + url;
+      path = url.startsWith(pathPrefix) ? path : pathPrefix + path;
+      path = [...new Set(url.split("/"))].join("/");
     }
     // 路径字符串对应到相应模块组件
-    const component = dynamicRouterModules[viewPath]
+    const component = item.children.length
+      ? TransitionNode
+      : dynamicRouterModules[viewPath];
 
     const node = {
       name,
@@ -39,9 +47,9 @@ export const generateDynamicRouter = (treeNode: any) => {
         title: name,
         keepAlive,
         icon,
-        sort
-      }
-    }
+        sort,
+      },
+    };
     return node;
-  })
-}
+  });
+};

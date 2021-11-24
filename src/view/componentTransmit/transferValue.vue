@@ -85,14 +85,14 @@ const transferValue = defineComponent({
         `,
       setup(props, ctx) {
         const modifyOrigin =
-          inject<(param: { number: number; obj: any }) => void>("modifyOrigin");
+          inject<(param: { number: number; obj: any }) => void>("modifyOrigin") as Function;
         const superNumber = inject<any>("superNumber");
         const mixedObj = inject("mixedObj");
         const onChange = () => {
           const number = 666;
           const obj = { meta1: 1 };
           // 获取父组件的方法
-          modifyOrigin?.({ number, obj });
+          modifyOrigin({ number, obj }) ;
           // 不生效 因为子组件中readonly
           superNumber.value = 55;
         };

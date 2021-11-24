@@ -14,8 +14,8 @@ import dynamicRouterModules from "@/router/modules";
 const baseRoutes: RouteRecordRaw[] = [
   {
     path: "/",
-    name: "path1",
-    component: Layout,
+    name: "layout",
+    component: ()=>import("@/layout/index.vue"),
     children: [
       {
         path: "home",

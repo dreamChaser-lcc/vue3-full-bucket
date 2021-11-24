@@ -46,8 +46,7 @@ export default defineComponent({
     const router = useRouter();
     const onSelect = (item: any) => {
       ctx.emit("update:selectedKeys", item.keypath);
-
-      router.replace(item.key);
+      router.push(`\/${item.key}`);
     };
     return {
       baseRoutes,

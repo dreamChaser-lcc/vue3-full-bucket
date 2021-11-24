@@ -7,6 +7,10 @@ import { computed, defineComponent, onMounted, watch } from "vue";
 import { useStore } from "vuex";
 import { IStore } from "@/store/types";
 import dynamicRouterModules from "@/router/modules";
+import { authorityRouter } from "@/../Mock/index";
+import { ArrayToTree } from "@/utils/common";
+import { generateDynamicRouter } from '@/router/generate-routers'
+
 /**vuex使用页面 */
 export default defineComponent({
   setup() {
@@ -23,6 +27,10 @@ export default defineComponent({
     onMounted(() => {
       // console.log(dynamicRouterModules)
       // console.log(store.getters["test/getcount"]);
+      const node = ArrayToTree(authorityRouter);
+      console.log(node);
+      const result = generateDynamicRouter(node);
+      console.log(result)
     });
     const onCommit = () => {
       store.commit("test/increment", { name: 123 });

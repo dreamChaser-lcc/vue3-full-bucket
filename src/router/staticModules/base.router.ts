@@ -51,6 +51,11 @@ const baseRoutes: RouteRecordRaw[] = [
         path: 'userVuex',
         name: 'userVuex',
         component: dynamicRouterModules['view/useVuex']
+      },
+      {
+        path: 'icons',
+        name: 'icons',
+        component: dynamicRouterModules['view/icons']
       }
     ],
   },

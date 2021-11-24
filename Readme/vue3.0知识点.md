@@ -126,17 +126,17 @@ app.use({
 共同点:都可以定义响应式变量
 | | ref | reactive |
 | -------- | ----------------------------------------------------------------- | ---------------------------- |
-| 定义类型 | 基础数据类型和引用类型\n`但一般用于定义基本类型` | `只能`定义引用类型(对象 | 数组) |
-| 返回对象 | 返回` RefImpl 类型的对象`，\n 译为引用的实现(reference implement) | 返回是 `Proxy 对象` |
+| 定义类型 | 基础数据类型和引用类型<br>`但一般用于定义基本类型` | `只能`定义引用类型(对象 | 数组) |
+| 返回对象 | 返回` RefImpl 类型的对象`，<br> 译为引用的实现(reference implement) | 返回是 `Proxy 对象` |
 | 读取变量 | console.log(ref.value) | console.log(reactive.属性名) |
 
 ## 组件通信
 
-| 通信类型          | 方法                                            |
-| ----------------- | ----------------------------------------------- |
-| 父子互值          | `props/ref` 方式,\n`props/emits` 方式(v-model/emits) |
-| 父子互传,子孙互传 | provide/inject                                  |
-| 全局共享          | vuex                                            |
+| 通信类型          | 方法                                                 |
+| ----------------- | ---------------------------------------------------- |
+| 父子互值          | `props/ref` 方式,<br>`props/emits` 方式(v-model/emits) |
+| 父子互传,子孙互传 | provide/inject                                       |
+| 全局共享          | vuex                                                 |
 
 ### 父子组件通信
 
@@ -337,4 +337,72 @@ setup() {
       },
     });
   },
+```
+
+## props 和 attrs 区别
+
+- props 和 attrs,都是标签上引用的属性
+- props 声明了才会出现在 props 中，否则会出现在 attrs 中
+- 相当于解构标签属性{props,...attrs},把声明的放到 props,没声明的放到 attrs
+
+```vue
+<template>
+  <child-component
+    name="name"
+    style="color:red"
+    @change="change"></child-component>
+</template>
+```
+
+```ts
+export default defineComponent({
+ props:{
+    name:{type:string}
+  }
+  setup(props,{solts,emits,attrs}){
+    // name会在props中，change和style会在attrs中
+    console.log({...props},{...attrs})
+    return {
+      attrs
+    }
+  }
+})
+```
+
+## react 和 vue 封装属性对比
+
+下面两个分别是 react 和 vue 封装组件的`区别`，实现内容是一样的
+
+### `react`中封装组件的组件传递管理
+
+```tsx
+interface IComponent {
+  name: string;
+}
+const component: FC<IComponent> = (allProps) => {
+  // 定义了name,相当于定义props,解构name,其余都放到attrs中
+  const { name, ...attrs } = allProps;
+  return <div {...attrs}>{name}</div>;
+};
+```
+
+### `vue`中封装组件的组件传递管理
+
+```vue
+<template>
+  <div v-bind="attrs">{{ name }}</div>
+</template>
+```
+
+```ts
+export default defineComponent({
+  props:{
+    name:{type:String}
+  }
+  setup(props,{attrs}){
+    return {
+      attrs
+    }
+  }
+})
 ```

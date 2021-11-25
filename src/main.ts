@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import App from "./App.vue";
 import setupAntdCompont from "./plugins/AntdCompont";
 import setupCustomTest from "./plugins/customTest";
-import setupRouter from "./router";
+import { setupRouter } from "./router";
 import setupStore from "./store";
 
 const app = createApp(App);

@@ -3,7 +3,7 @@ import { createStore } from "vuex"
 import modules from "./modules"
 import { IStore } from "./types"
 
-const store = createStore<IStore>({
+export const store = createStore<IStore>({
   plugins: [],
   modules: modules,
 })

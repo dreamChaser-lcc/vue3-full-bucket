@@ -1,16 +1,11 @@
 <!-- 左侧菜单页面  -->
 <template>
-  <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible>
+  <a-layout-sider :trigger="null" collapsible>
     <div class="logo" />
-    <a-menu
-      theme="dark"
-      mode="inline"
-      @click="onSelect"
-      :selectedKeys="selectedKeys">
-      <a-menu-item v-for="item in baseRoutes[0].children" :key="item.name">
-        <user-outlined />
-        <span>{{ item.name }}</span>
-      </a-menu-item>
+    <a-menu theme="dark" mode="inline" @click="onSelect">
+      <template v-for="item in baseRoutes[0].children" :key="item.path">
+        <menu-item :menu-info="item"></menu-item>
+      </template>
     </a-menu>
   </a-layout-sider>
 </template>
@@ -25,6 +20,7 @@ import {
 } from "@ant-design/icons-vue";
 import { baseRoutes } from "@/router/staticModules/index";
 import { useRouter } from "vue-router";
+import MenuItem from "./menuItem.vue";
 
 export default defineComponent({
   name: "PageSider",
@@ -34,19 +30,25 @@ export default defineComponent({
     UploadOutlined,
     MenuUnfoldOutlined,
     MenuFoldOutlined,
+    MenuItem,
   },
-  props: {
+  prop: {
     collapsed: { type: Boolean },
-    selectedKeys: { type: Array },
+    // selectedKeys: { type: Array },
     handleSelect: { type: String },
   },
-  emits: ["update:selectedKeys"],
+  // emits: ["update:selectedKeys"],
   setup(props, ctx) {
-    const { selectedKeys, handleSelect } = props;
+    // const { selectedKeys, handleSelect } = props;
     const router = useRouter();
-    const onSelect = (item: any) => {
-      ctx.emit("update:selectedKeys", item.keypath);
-      router.push(`\/${item.key}`);
+    const onSelect = (item:any) => {
+      console.log("item", item);
+      // ctx.emit("update:selectedKeys", item.keypath);
+      if (item.key.startsWith("/")) {
+        router.push({name:item.key});
+      } else {
+        router.push({name:item.key});
+      }
     };
     return {
       baseRoutes,

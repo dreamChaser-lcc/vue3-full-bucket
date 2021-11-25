@@ -1,5 +1,5 @@
 <template>
-  <my-icon :type="type" v-bind="attrs" ></my-icon>
+  <my-icon :type="type" v-bind="attrs"></my-icon>
 </template>
 <script lang="ts">
 import { computed, defineComponent } from "vue";
@@ -14,7 +14,7 @@ export default defineComponent({
   },
   props: {
     /**图标 */
-    type: { type: String },
+    type: { type: String, default: "icon-qianshou" },
     // 图标大小
     size: { type: Number },
     /**颜色 */
@@ -26,7 +26,7 @@ export default defineComponent({
     // const { size, color } = props;
     // console.log({...props},{...attrs})
     return {
-      attrs
+      attrs,
     };
   },
 });

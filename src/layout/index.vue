@@ -2,11 +2,7 @@
 <template>
   <div>
     <a-layout>
-      <page-sider
-        v-model:collapsed="collapsed"
-        v-model:selectedKeys="selectedKeys"
-        >
-      </page-sider>
+      <page-sider :collapsed="collapsed"> </page-sider>
       <a-layout>
         <page-head v-model:collapsed="collapsed"></page-head>
         <a-layout-content
@@ -49,7 +45,7 @@ export default defineComponent({
     PageSider,
   },
   setup() {
-    const selectedKeys = ref<string[]>(["1"]);
+    const selectedKeys = ref<string[]>(["userVuex"]);
     const collapsed = ref<boolean>(false);
     // console.log(selectedKeys.value);
     const handleSelect = (value: any) => {

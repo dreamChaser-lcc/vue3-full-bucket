@@ -30,14 +30,14 @@ export default defineComponent({
     onMounted(() => {
       // console.log(dynamicRouterModules)
       // console.log(store.getters["test/getcount"]);
-      const node = ArrayToTree(authorityRouter);
-      console.log(node);
-      const result = generateDynamicRouter(node);
-      console.log(result);
-      const layout = baseRoutes.find((i) => i.name === "layout");
-      layout!.children = [...(layout!.children as RouteRecordRaw[]), ...result];
-      router.addRoute(layout as RouteRecordRaw );
-      console.log(layout)
+      // const node = ArrayToTree(authorityRouter);
+      // console.log(node);
+      // const result = generateDynamicRouter(node);
+      // console.log(result);
+      // const layout = baseRoutes.find((i) => i.name === "layout");
+      // layout!.children = [...(layout!.children as RouteRecordRaw[]), ...result];
+      // router.addRoute(layout as RouteRecordRaw );
+      // console.log(layout)
     });
     const onCommit = () => {
       store.commit("test/increment", { name: 123 });

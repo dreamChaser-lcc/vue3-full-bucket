@@ -3,49 +3,51 @@
 // Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
 import { defineComponent, getCurrentInstance, onMounted, onUpdated } from "vue";
 import { useRoute } from "vue-router";
+import { store } from "./store";
 
 declare module "@vue/runtime-core" {
-  interface ComponentCustomProperties {
-    $hasPermission: any;
-  }
+	interface ComponentCustomProperties {
+		$hasPermission: any;
+	}
 }
 
 export default defineComponent({
-  name: "App",
-  // components: { HelloWorld },
-  setup: (props, ctx) => {
-    const proxy = getCurrentInstance()!.proxy;
-    const route = useRoute();
-    onUpdated(() => {
-      // console.log("123", route.name);
-    });
-    const meta = route.meta;
-    const name = route.name;
-    return {
-      meta,
-      name,
-    };
-  },
+	name: "App",
+	// components: { HelloWorld },
+	setup: (props, ctx) => {
+		const proxy = getCurrentInstance()!.proxy;
+		const route = useRoute();
+		onUpdated(() => {
+			// console.log("123", route.name);
+		});
+		onMounted(() => {});
+		const meta = route.meta;
+		const name = route.name;
+		return {
+			meta,
+			name,
+		};
+	},
 });
 </script>
 
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
-  <!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite1" /> -->
-  <!-- <a-button type="primary">Text Button</a-button> -->
-  <!-- <h1>{{ meta }}</h1>
+	<!-- <img alt="Vue logo" src="./assets/logo.png" /> -->
+	<!-- <HelloWorld msg="Hello Vue 3 + TypeScript + Vite1" /> -->
+	<!-- <a-button type="primary">Text Button</a-button> -->
+	<!-- <h1>{{ meta }}</h1>
   <router-link to="/">Go to Home</router-link>
   <router-link to="/about">Go to About</router-link> -->
-  <router-view> </router-view>
+	<router-view> </router-view>
 </template>
 
 <style>
 #app {
-  /* font-family: Avenir, Helvetica, Arial, sans-serif;
+	/* font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50; */
-  height: 100vh;
+	height: 100vh;
 }
 </style>

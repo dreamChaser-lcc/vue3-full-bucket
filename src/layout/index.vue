@@ -2,7 +2,7 @@
 <template>
   <div>
     <a-layout>
-      <page-sider :collapsed="collapsed"> </page-sider>
+      <page-sider :collapsed="collapsed"></page-sider>
       <a-layout>
         <page-head v-model:collapsed="collapsed"></page-head>
         <a-layout-content
@@ -25,7 +25,7 @@
   </div>
 </template>
 <script lang="ts">
-import { defineComponent, ref } from "vue";
+import { defineComponent, ref, watch, watchEffect } from "vue";
 import {
   UserOutlined,
   VideoCameraOutlined,
@@ -47,11 +47,8 @@ export default defineComponent({
   setup() {
     const selectedKeys = ref<string[]>(["userVuex"]);
     const collapsed = ref<boolean>(false);
-    // console.log(selectedKeys.value);
-    const handleSelect = (value: any) => {
-      // console.log(value)
-      // selectedKeys.value.push(value.key);
-    };
+
+    const handleSelect = (value: any) => {};
     return { selectedKeys: selectedKeys, collapsed, handleSelect };
   },
 });

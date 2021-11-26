@@ -7,11 +7,15 @@
     <menu-fold-outlined
       v-else
       class="trigger"
-      @click="() => $emit('update:collapsed', !collapsed)" />
+      @click="
+        () => {
+          $emit('update:collapsed', !collapsed);
+        }
+      " />
   </a-layout-header>
 </template>
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent, watchEffect } from "vue";
 import { MenuUnfoldOutlined, MenuFoldOutlined } from "@ant-design/icons-vue";
 const PageHead = defineComponent({
   components: {
@@ -24,9 +28,9 @@ const PageHead = defineComponent({
       type: Boolean,
     },
   },
-  emits:['update:collapsed'],
-  setup(props,ctx) {
-    // console.log(props.collapsed);
+  emits: ["update:collapsed"],
+  setup(props, ctx) {
+   
   },
 });
 export default PageHead;

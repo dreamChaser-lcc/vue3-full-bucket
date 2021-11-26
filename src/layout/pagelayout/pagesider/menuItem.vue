@@ -5,7 +5,7 @@
     <template #title>
       <span>
         <icon-font :type="menuInfo.meta?.icon" />
-        <span>{{ menuInfo.meta?.title || menuInfo.name }}</span>
+        <span>{{ menuInfo.meta?.title ?? menuInfo.name }}</span>
       </span>
     </template>
     <template v-for="item in menuInfo.children" :key="item.name">

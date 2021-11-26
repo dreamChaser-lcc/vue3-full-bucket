@@ -8,7 +8,6 @@ import { useStore } from "vuex";
 import { IStore } from "@/store/types";
 import dynamicRouterModules from "@/router/modules";
 import { authorityRouter } from "@/../Mock/index";
-import { ArrayToTree } from "@/utils/common";
 import { generateDynamicRouter } from "@/router/generate-routers";
 import { baseRoutes } from "@/router/staticModules";
 import { RouteRecordRaw, useRouter } from "vue-router";

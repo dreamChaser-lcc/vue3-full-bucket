@@ -1,8 +1,5 @@
-import { ArrayToTree } from "@/utils/common";
-import { authorityRouter } from "@/../Mock";
 import { App } from "vue";
-import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
-import { generateDynamicRouter } from "./generate-routers";
+import { createRouter, createWebHashHistory } from "vue-router";
 import { baseRoutes } from "./staticModules/index";
 import { createBeforeGuards } from "./router-guards";
 /**
@@ -10,7 +7,7 @@ import { createBeforeGuards } from "./router-guards";
  * @param app
  */
 
- const router = createRouter({
+const router = createRouter({
   // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
   history: createWebHashHistory(),
   routes: baseRoutes,

@@ -7,6 +7,7 @@
 // Record<string,any> => 属性名为string类型，值为any的对象
 const dynamicRouterModules: Record<string, any> = {}
 
+// 当前目录所有的ts文件导入
 const moduleFiles = import.meta.globEager('./*.ts');
 
 Object.keys(moduleFiles).forEach(fileKey => {

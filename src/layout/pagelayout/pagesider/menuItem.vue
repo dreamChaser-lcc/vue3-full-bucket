@@ -15,7 +15,7 @@
       <template v-else>
         <a-menu-item :key="item.name">
          <icon-font/>
-          <span>{{ item.name }}</span>
+          <span>{{ item.meta?.title }}</span>
         </a-menu-item>
       </template>
     </template>
@@ -23,7 +23,7 @@
   <template v-else>
     <a-menu-item :key="menuInfo.name">
       <icon-font/>
-      <span>{{ menuInfo.name }}</span>
+      <span>{{ menuInfo.meta?.title }}</span>
     </a-menu-item>
   </template>
 </template>

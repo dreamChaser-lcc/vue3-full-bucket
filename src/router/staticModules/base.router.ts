@@ -11,6 +11,7 @@ import About from "@/components/About.vue";
 import userVuex from "@/view/useVuex";
 import dynamicRouterModules from "@/router/modules";
 import { commonRouter } from "./common";
+import { errorRoutes } from "./error";
 
 const baseRoutes: RouteRecordRaw[] = [
   {
@@ -19,5 +20,6 @@ const baseRoutes: RouteRecordRaw[] = [
     component: () => import("@/layout/index.vue"),
     children: [...commonRouter]
   },
+  errorRoutes
 ];
 export default baseRoutes

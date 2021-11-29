@@ -24,7 +24,6 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from "@ant-design/icons-vue";
-import { baseRoutes } from "@/router/staticModules/index";
 import { RouteRecordRaw, useRoute, useRouter } from "vue-router";
 import MenuItem from "./menuItem.vue";
 import { store } from "@/store";
@@ -57,7 +56,7 @@ export default defineComponent({
     const menus = computed(() => {
       return store.getters["asyncRouter/getMenus"].find(
         (val: RouteRecordRaw) => val.name === "layout"
-      ).children;
+      )?.children;
     });
     // 监听菜单左右收缩状态
     watch(
@@ -79,7 +78,7 @@ export default defineComponent({
     );
     // 点击菜单
     const onClickItem = (item: any) => {
-      console.log("item", item);
+      console.log(item)
       if (/http(s)?:/.test(item.key)) {
         window.open(item.key);
       } else {

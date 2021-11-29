@@ -17,7 +17,10 @@ export const commonRouter: RouteRecordRaw[] = [
       {
         path: "test",
         name: 'test',
-        component: DefaultSlotTest
+        component: DefaultSlotTest,
+        meta:{
+          title:'transferValue',
+        }
       }
     ]
   },
@@ -32,15 +35,24 @@ export const commonRouter: RouteRecordRaw[] = [
     name: 'transferValue',
     // redirect: "/home",
     component: dynamicRouterModules['view/componentTransmit'],
+    meta:{
+      title:'transferValue',
+    }
   },
   {
     path: 'userVuex',
     name: 'userVuex',
-    component: dynamicRouterModules['view/useVuex']
+    component: dynamicRouterModules['view/useVuex'],
+    meta:{
+      title:'userVuex',
+    }
   },
   {
     path: 'icons',
     name: 'icons',
-    component: dynamicRouterModules['view/icons']
+    component: dynamicRouterModules['view/icons'],
+    meta:{
+      title:'icons',
+    }
   }
 ]
